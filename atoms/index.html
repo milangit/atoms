@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+        
+        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        
+        <title>Atoms</title>
+    </head>
+
+
+<body>
+<script>
+
+function outer(a) {
+    function inner(b) {
+        return a+b;
+    }
+    return inner;
+}
+
+var f = outer(3);
+console.log(f(6));
+console.log(outer(50));
+
+var myDataRef = new Firebase('https://milantest.firebaseio.com/');
+//var myDataRef = new Firebase('https://incandescent-fire-5184.firebaseio.com/');
+
+//myDataRef.set('ahoj , jak se vede?');
+//myDataRef.set({name: "milan", text: "kuku"});
+//myDataRef.push({name: "mhgilan", text: "kku"});
+
+//myDataRef.set({a: {b: 7}});
+
+//smaž všechny stickies z databáze
+
+
+//ZÁPIS DATA DO DATABÁZE
+// myDataRef.set(null);
+
+// var stickie = {
+//     id: 0,
+//     color: "#eee",
+//     size: 20,
+//     title: "ahoj"
+// };
+
+// for (var i=1; i<=5;i++)
+// {
+//     stickie.id = i;
+//     stickie.title = "ahoj";
+
+//     myDataRef.push(stickie);    
+// }
+
+
+
+myDataRef.on("value", function(snapshot) {
+  //alert(snapshot.exists());
+  //alert(snapshot.numChildren());
+  
+  snapshot.forEach(function(childSnapshot) {
+    // key will be "fred" the first time and "barney" the second time
+    //var key = childSnapshot.key();
+    // childData will be the actual contents of the child
+    //var childData = childSnapshot.val();
+    
+    //alert(childSnapshot.key());
+    var childData = childSnapshot.val();
+    alert(childData.id + " " + childData.color);
+    
+  });
+  
+}
+);
+
+/*
+
+var a = 3;
+
+function f() {
+    var b = 5;
+    return a+b;
+}
+
+console.log(f());
+
+
+
+function add(array, value) {
+    array.push(value);
+    value += 1;
+}
+
+var array = [1,2,3];
+var value = 4;
+add(array,value);
+
+//alert(array);
+//alert(value);
+console.log(array);
+console.log(value);
+
+
+var f = function() {
+    alert("Hi");
+}
+setTimeout(f, 1000);
+
+*/
+
+</script>
+
+</body>
+
+
+
+</html>
